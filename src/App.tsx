@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import ToDoForm from "./components/ToDoForm";
+import TasksList from "./components/TasksList";
 
 interface Task {
   id: string;
@@ -53,30 +55,13 @@ function App() {
   return (
     <div className="container">
       <h2>To Do List App</h2>
-      <form className="form-input" onSubmit={submitHandler}>
-        <input
-          type="text"
-          value={task}
-          className="text-input"
-          onChange={changeHandler}
-          placeholder="Add a new task"
-        />
-        <button type="submit" className="submit-btn">
-          {editId ? "Edit" : "Go"}
-        </button>
-      </form>
-
-      <ul>
-        {tasks.map((t) => {
-          return (
-            <li key={t.id}>
-              <span className="single-text">{t.task}</span>
-              <button onClick={() => updateHandler(t.id)}>Update</button>
-              <button onClick={() => deleteHandler(t.id)}>Delete</button>
-            </li>
-          );
-        })}
-      </ul>
+      <ToDoForm
+        submitHandler={submitHandler}
+        task={task}
+        changeHandler={changeHandler}
+        editId={editId}
+      />
+      <TasksList tasks={tasks} updateHandler={updateHandler} deleteHandler={deleteHandler} />
     </div>
   );
 }
